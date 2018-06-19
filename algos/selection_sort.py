@@ -14,3 +14,5 @@ def selection_sort(arr):
 if __name__ == "__main__":
     arr = [4,6,87,0,-1]
     assert [-1,0,4,6,87] == selection_sort(copy.deepcopy(arr))
+    arr = [4,6,87,0,-1,11]
+    assert [-1,0,4,6,11,87] == selection_sort(copy.deepcopy(arr))
