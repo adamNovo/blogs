@@ -1,6 +1,6 @@
 import pandas as pd
 
-def price_features(df):
+def trend_features(df):
     """
     Args:
         df: pandas.DataFrame, columns include at least ["date", "open", "high", "low", "close", "volume"]
@@ -11,22 +11,49 @@ def price_features(df):
     df["close_to_high"] = df["close"] / df["high"]
     df["close_to_low"] = df["close"] / df["low"]
     df["return"] = df["close"] / df["close"].shift(1)
+    # TODO MACD
+    # TODO MA
+    # TODO Parabolic Stop and Reverse
     return df
 
 def momentum_features(df):
-    # TODO
-    # df['momentum'] = (df['Adj Close'] / df['Adj Close'].shift(lookback)) - 1
-    pass
+    """
+    Args:
+        df: pandas.DataFrame, columns include at least ["date", "open", "high", "low", "close", "volume"]
+    Returns:
+        pandas.DataFrame
+    """
+    df["5d_momentum"] = df["close"] / df["close"].shift(5)
+    df["21d_momentum"] = df["close"] / df["close"].shift(21)
+    df["60d_momentum"] = df["close"] / df["close"].shift(60)
+    # TODO Stochastic
+    # TODO Commodity Channel (CCI)
+    # TODO RSI
+    return df
 
 def volatility_features(df):
-    # TODO
-    # df['volatility'] = (pd.rolling_std(df['return'], lookback))
-    # df['bollinger'] = ((df['close'] - 
-    #     pd.rolling_mean(df['close'], lookback)) / 
-    #     2 * pd.rolling_std(df['close'], lookback))
-    pass
+    """
+    Args:
+        df: pandas.DataFrame, columns include at least ["date", "open", "high", "low", "close", "volume"]
+    Returns:
+        pandas.DataFrame
+    """
+    df["5d_volatility"] = df["return"].rolling(5).std()
+    df["21d_volatility"] = df["return"].rolling(21).std()
+    df["60d_volatility"] = df["return"].rolling(60).std()
+    df["bollinger"] = ((df["close"] - df["close"].rolling(21).mean()) / 
+        2 * df["close"].rolling(21).std())
+    # TODO Average true range
+    return df
 
-def activity_features(df):
-    # TODO
-    # df['volume_rolling'] = (df['volume'] / df['volume'].shift(lookback))
-    pass
+def volume_features(df):
+    """
+    Args:
+        df: pandas.DataFrame, columns include at least ["date", "open", "high", "low", "close", "volume"]
+    Returns:
+        pandas.DataFrame
+    """
+    df["volume_rolling"] = df["volume"] / df["volume"].shift(21)
+    # TODO on balance volume
+    # TODO chaikin oscilator
+    return df
