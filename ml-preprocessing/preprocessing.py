@@ -31,9 +31,10 @@ def missing_values(df):
 
 def outliers(df):
     df_outliers = df.loc[:,["date", "return", "close_to_open", "close_to_high", "close_to_low"]]
-    df_smallest = df_outliers.sort_values(by="return", ascending=True)
+    column_to_analysts = "return"
+    df_smallest = df_outliers.sort_values(by=column_to_analysts, ascending=True)
+    df_largest = df_outliers.sort_values(by=column_to_analysts, ascending=False)
     # print(df_smallest.iloc[:5])
-    df_largest = df_outliers.sort_values(by="return", ascending=False)
     # print(df_largest.iloc[:5])
     return df
 

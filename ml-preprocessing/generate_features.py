@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import pandas as pd
 
 def return_features(df):
@@ -21,10 +22,46 @@ def trend_features(df):
     Returns:
         pandas.DataFrame
     """
-    # TODO MACD
+    df = macd(df)
     # TODO MA
     # TODO Parabolic Stop and Reverse
     return df
+
+def macd(df):
+    """
+    Args:
+        df: pandas.DataFrame, columns include at least ["close"]
+    Returns:
+        pandas.DataFrame
+    """
+    ema_12_day = df["close"].ewm(com=(12-1)/2).mean()
+    ema_26_day = df["close"].ewm(com=(26-1)/2).mean()
+    df["macd_line"] = ema_12_day - ema_26_day
+    df["macd_9_day"] = df["macd_line"].ewm(com=(9-1)/2).mean()
+    # print(df.tail(10)[["date", "close", "macd_line", "macd_9_day"]])
+    chart_macd(df)
+    return df
+
+def chart_macd(df):
+    """
+    Save chart to charts/macd
+    Args:
+        df: pandas.DataFrame, columns include at least ["date", "close", "macd_line", "macd_9_day"]
+    Returns:
+        None
+    """
+    fig, axes = plt.subplots(2, 1, figsize=(10, 10))
+    fig.tight_layout()
+    plt.suptitle("MSFT", fontsize=24)
+    plt.subplots_adjust(left=0.1, top=0.9, hspace = 0.4)
+    ax1 = axes[0]
+    ax1.set_title("Price")
+    ax1.set_ylabel("$")
+    df.tail(300)[["date", "close"]].plot(x="date", kind="line", ax=ax1)
+    ax2 = axes[1]
+    ax2.set_title("MACD")
+    df.tail(300)[["date", "macd_line", "macd_9_day"]].plot(x="date", kind="line", ax=ax2)
+    fig.savefig("charts/macd.png")
 
 def momentum_features(df):
     """
