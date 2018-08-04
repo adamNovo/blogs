@@ -9,10 +9,9 @@ def preprocessing():
     df = source_to_df(filename)
     df = generate_features.return_features(df)
     df = clean_df(df)
-    # print(df.head(5)[["date", "open", "high", "low", "close", "volume", "return"]])
     df = new_features(df)
-    filename = "MSFT_clean.csv"
-    df_to_csv(df, filename)
+    # print(df.head(5)[["date", "open", "high", "low", "close", "volume", "return"]])
+    df_to_csv(df=df, filename="MSFT_clean.csv")
 
 def clean_df(df):
     df = missing_values(df)
