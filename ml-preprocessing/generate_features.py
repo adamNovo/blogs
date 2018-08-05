@@ -241,9 +241,38 @@ def rsi(df):
     Returns:
         pandas.DataFrame
     """
-    
-    # chart_rsi(df)
+    df["dollar_pnl"] = df["close"].shift(1) - df["close"]
+    avg_gains = df["dollar_pnl"].iloc[:14][df["dollar_pnl"].iloc[:14] > 0].sum() / 14
+    avg_losses = abs(df["dollar_pnl"].iloc[:14][df["dollar_pnl"].iloc[:14] < 0].sum()) / 14
+    for i, row in df.iloc[14:].iterrows():
+        if row["dollar_pnl"] > 0:
+            avg_gains = (avg_gains * 13 + row["dollar_pnl"]) / 14
+        else:
+            avg_losses = (avg_losses * 13 + abs(row["dollar_pnl"])) / 14
+        if avg_losses == 0:
+            rs = 100
+        else:
+            rs = avg_gains / avg_losses
+        df.loc[i, "rsi"] = 100 - 100 / (1 + rs)
+    print(df.tail(20)[["date", "close", "rsi"]])
+    chart_rsi(df)
     return df
+
+def chart_rsi(df):
+    """
+    Save chart to charts/rsi
+    Args:
+        df: pandas.DataFrame, columns include at least ["date", "close", "stochastic_oscillator"]
+    Returns:
+        None
+    """
+    fig, axes = plt.subplots(1, 1, figsize=(10, 10))
+    fig.tight_layout()
+    plt.suptitle("MSFT Relative Strength Index (RSI)", fontsize=24)
+    plt.subplots_adjust(left=0.1, top=0.9, right=0.9, hspace = 0.4)
+    df.tail(100)[["date", "close"]].plot(x="date", kind="line", ax=axes, secondary_y=False)
+    df.tail(100)[["date", "rsi"]].plot(x="date", kind="line", ax=axes, secondary_y=True)
+    fig.savefig("charts/rsi.png")
 
 def volatility_features(df):
     """
