@@ -45,6 +45,12 @@ def yahoo_finance_source_to_df(filename):
     return df
 
 def clean_df(df):
+    """
+    Args:
+        df: pandas.DataFrame
+    Returns:
+        pandas.DataFrame
+    """
     df = missing_values(df)
     df = outliers(df)
     return df
@@ -52,6 +58,10 @@ def clean_df(df):
 def missing_values(df):
     """
     Replace missing values with latest available
+    Args:
+        df: pandas.DataFrame
+    Returns:
+        pandas.DataFrame
     """
     missing_values_count = df.isnull().sum()
     # print("Original data # missing values: {}".format(missing_values_count))
@@ -66,6 +76,13 @@ def missing_values(df):
         return df
 
 def outliers(df):
+    """
+    Analyze outliers of dataset
+    Args:
+        df: pandas.DataFrame
+    Returns:
+        pandas.DataFrame
+    """
     df_outliers = df.loc[:,["date", "return", "close_to_open", "close_to_high", "close_to_low"]]
     column_to_analysts = "return"
     df_smallest = df_outliers.sort_values(by=column_to_analysts, ascending=True)
