@@ -3,6 +3,9 @@ import numpy as np
 import pandas as pd
 
 from sklearn import linear_model
+from sklearn.metrics import mean_absolute_error
+from sklearn.metrics import mean_squared_error
+from sklearn.metrics import r2_score
 
 def training():
     filename = "MSFT.csv"
@@ -26,12 +29,28 @@ def training_data_from_csv(filename_features, filename_variables):
 def linear_regression(X, y):
     model = linear_model.LinearRegression()
     model.fit(X, y)
-    params = model.get_params()
-    print(params)
-    print(model.coef_)
-    score = model.score(X, y)
-    print(score)
+    # params = model.get_params()
+    # coef = model.coef_
+    y_pred = model.predict(X)
+    y = y.values
+    mae, mse, r2 = performance(y, y_pred)
+    print("MAE: {}, MSE: {}, R^2 {}".format(mae, mse, r2))
 
+def performance(y_true, y_pred):
+    """
+    Calculates regression performance
+    Args:
+        y_true: numpy.ndarray
+        y_pred: numpy.ndarray
+    Returns:
+        mae: mean_absolute_error
+        mse: mean_squared_error
+        r2: r2
+    """
+    mae = mean_absolute_error(y_true, y_pred)
+    mse = mean_squared_error(y_true, y_pred)
+    r2 = r2_score(y_true, y_pred)
+    return mae, mse, r2
 
 if __name__ == "__main__":
     training()
