@@ -12,7 +12,7 @@ def main(X: np.ndarray, y: np.ndarray, tscv_idx) -> None:
     Args:
         X: numpy.ndarray
         y: numpy.ndarray
-        tscv_idx: list of numpy.ndarray
+        tscv_idx: generator of indexes used for training and testing in folds
     Returns:
         None
     """

@@ -20,14 +20,16 @@ def training():
     X = X.values # convert to numpy.ndarray used by sklearn
     y = y.values # convert to numpy.ndarray used by sklearn
     tscv = TimeSeriesSplit(n_splits=3)
-    # import linear_regression as lin_reg
-    # lin_reg.main(X, y, tscv.split(X))
-    # import decision_tree as dtree
-    # dtree.main(X, y, tscv.split(X))
-    # import neural_net_scikit as nn_scikit
+    import linear_regression as lin_reg
+    lin_reg.main(X, y, tscv.split(X))
+    import decision_tree as dtree
+    dtree.main(X, y, tscv.split(X))
+    dtree.grid_search(X, y, tscv.split(X))
+    import neural_net_scikit as nn_scikit
     # nn_scikit.main(X, y, tscv.split(X))
     import neural_net_keras as nn_keras
     nn_keras.main(X, y, tscv.split(X))
+    # nn_keras.grid_search(X, y, tscv.split(X))
 
 def training_data_from_csv(filename_features, filename_variables):
     """
