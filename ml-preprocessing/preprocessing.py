@@ -1,3 +1,7 @@
+import warnings
+# Ignore warning: lib/python3.6/importlib/_bootstrap.py:219: RuntimeWarning: numpy.dtype size changed, may indicate binary incompatibility. Expected 96, got 88 return f(*args, **kwds)
+warnings.filterwarnings("ignore", message="numpy.dtype size changed")
+warnings.filterwarnings("ignore", message="numpy.ufunc size changed")
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
@@ -12,20 +16,20 @@ def preprocessing():
     df = yahoo_finance_source_to_df(filename)
     df = generate_features.return_features(df)
     df = generate_features.target_value(df)
-    # print(df.head(5)[["date", "close", "volume", "return", "y"]])
     df = clean_df(df)
     df = new_features(df)
     X, y = remove_unused_features(df)
     X = X.values # convert to np.ndarray for sklearn
     y = y.values # convert to np.ndarray for sklearn
-    X = scaling(X)
-    X = dimensionality_reduction(X)
     train_test_split = 7000
     X_learn = X[:train_test_split]
     y_learn = y[:train_test_split]
     X_test = X[train_test_split:]
     y_test = y[train_test_split:]
     assert len(X_learn) + len(X_test) == len(X)
+    X_learn, scaler = scaling(X_learn)
+    X_test, scaler = scaling(X_test, scaler) # use the same scaler as for training data to prevent train to test leakage
+    # X_learn = dimensionality_reduction(X_learn) # PCA not used due to a small number of original features
     df_to_csv(df=pd.DataFrame(X_learn), filename="MSFT_X_learn.csv")
     df_to_csv(df=pd.DataFrame(y_learn), filename="MSFT_y_learn.csv")
     df_to_csv(df=pd.DataFrame(X_test), filename="MSFT_X_test.csv")
@@ -122,7 +126,7 @@ def remove_unused_features(df):
     y = df.loc[200:len(df)-1, ["y"]]
     return X, y
 
-def scaling(df):
+def scaling(df, scaler=None):
     """
     Scale all features to unit variance and 0 mean to optimize training
     Args:
@@ -130,10 +134,15 @@ def scaling(df):
     Returns:
         numpy.ndarray
     """
-    X = sklearn_preprocessing.scale(df, axis=0)
-    assert sum(X.mean(axis=0)) > -0.00001 and sum(X.mean(axis=0)) < 0.00001 # zero mean
-    assert sum(X.std(axis=0)) > 0.99999 and sum(X.mean(axis=0)) < 1.00001 # unit variance
-    return X
+    if not scaler:
+        scaler_model = sklearn_preprocessing.StandardScaler().fit(df)
+    else:
+        scaler_model = scaler
+    X = scaler_model.transform(df)
+    if not scaler:
+        assert sum(X.mean(axis=0)) > -0.00001 and sum(X.mean(axis=0)) < 0.00001 # zero mean
+        assert sum(X.std(axis=0)) > 0.99999 and sum(X.mean(axis=0)) < 1.00001 # unit variance
+    return X, scaler_model
 
 def dimensionality_reduction(X):
     """
@@ -145,8 +154,8 @@ def dimensionality_reduction(X):
     """
     sk_model = PCA(n_components=10)
     sk_model.fit_transform(X)
-    sk_model.explained = sk_model.explained_variance_ratio_.cumsum()
-    # PCA not used due to a small number of original features
+    sk_model_explained = sk_model.explained_variance_ratio_.cumsum()
+    print("PCA: {}".format(sk_model_explained))
     return X
 
 def df_to_csv(df, filename):
