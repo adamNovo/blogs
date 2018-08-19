@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import pickle
 from sklearn import tree
 from sklearn.model_selection import GridSearchCV
 from sklearn.preprocessing import PolynomialFeatures
@@ -38,6 +39,8 @@ def main(X: np.ndarray, y: np.ndarray, tscv_idx) -> None:
         results.loc[len(results)] = [train_idx[-1], mae_train, mse_train, r2_train,
             mae_test, mse_test, r2_test]
     plot_performance(results, "Decision Tree", "tree")
+    print(results)
+    pickle.dump(model, open("dtree_model.pkl", "wb"))
 
 def grid_search(X: np.ndarray, y: np.ndarray, tscv_idx):
     """
