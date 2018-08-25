@@ -1,0 +1,14 @@
+version: '3'
+services:
+  awslinuxlambda:
+    container_name: awslinuxlambda
+    image: amazonlinuxlambda_img
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/mnt/app
+    stdin_open: true
+    tty: true
+    restart: always
+    
