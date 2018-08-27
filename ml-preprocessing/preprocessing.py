@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 from sklearn import preprocessing as sklearn_preprocessing
 from sklearn.decomposition import PCA
+from sklearn.externals import joblib
 
 import generate_features
 
@@ -136,6 +137,7 @@ def scaling(df, scaler=None):
     """
     if not scaler:
         scaler_model = sklearn_preprocessing.StandardScaler().fit(df)
+        joblib.dump(scaler_model, "scaler_ml.pkl")
     else:
         scaler_model = scaler
     X = scaler_model.transform(df)

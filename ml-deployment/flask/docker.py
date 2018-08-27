@@ -34,6 +34,7 @@ def docker_stop():
 
 def docker_rm():
     subprocess.call("""
+    docker stop {0};
     docker rm {0};
     """.format(container), shell=True)
 

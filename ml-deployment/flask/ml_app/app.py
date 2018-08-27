@@ -4,6 +4,7 @@ from flask import Flask, jsonify, request, make_response
 
 import generate_features
 from auth import requires_auth
+from sklearn.externals import joblib
 
 app = Flask(__name__)
 
@@ -44,10 +45,9 @@ def preprocess(df):
     df = generate_features.volatility_features(df)
     df = generate_features.volume_features(df)
     X, y = remove_unused_features(df)
-    X_forecast = X[len(X)-forecast_len:]
-    y_forecast = y[len(y)-forecast_len:]
-    X_forecast = X_forecast.values # convert to np.ndarray for sklearn
-    y_forecast = y_forecast.values # convert to np.ndarray for sklearn
+    X_forecast = X[len(X)-forecast_len:].values # convert to np.ndarray for sklearn
+    y_forecast = y[len(y)-forecast_len:].values # convert to np.ndarray for sklearn
+    X_forecast = scaling(X_forecast)
 
 def yahoo_finance_source_to_df(filename):
     """
@@ -92,5 +92,17 @@ def remove_unused_features(df):
         "bollinger", "atr", "on_balance_volume", "chaikin_oscillator"]]
     y = df.loc[200:len(df)-1, ["y"]]
     return X, y
+
+def scaling(df):
+    """
+    Scales X features using the scaler derived from preprocessing
+    Args:
+        df: pandas.DataFrame
+    Returns:
+        pandas.DataFrame
+    """
+    scaler = joblib.load("scaler_ml.pkl")
+    X = scaler.transform(df) 
+    return X
 
     
