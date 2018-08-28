@@ -1,6 +1,6 @@
 class Node(object):
     """
-    Represent binary search node
+    Represents a binary search node
     """
     def __init__(self, data):
         self.data = data
