@@ -1,10 +1,15 @@
 import pandas as pd
+import pickle
 import os
 from flask import Flask, jsonify, request, make_response
+from sklearn.externals import joblib
+from sklearn.metrics import mean_absolute_error
+from sklearn.metrics import mean_squared_error
+from sklearn.metrics import r2_score
+from sklearn.preprocessing import PolynomialFeatures
 
 import generate_features
 from auth import requires_auth
-from sklearn.externals import joblib
 
 app = Flask(__name__)
 
@@ -22,8 +27,11 @@ def forecast_post():
     """
     if request.data:
         df = pd.read_json(request.data, orient='split')
-        preprocess(df)
-        df_json = df.to_json(orient='split')
+        X, y = preprocess(df)
+        model = pickle.load(open("dtree_model.pkl", "rb"))
+        print(model)
+        performance_df = run_model(X, y, model)
+        df_json = performance_df.to_json(orient='split')
         resp = make_response(jsonify({"data": df_json}), 200)
         return resp
     else:
@@ -48,6 +56,7 @@ def preprocess(df):
     X_forecast = X[len(X)-forecast_len:].values # convert to np.ndarray for sklearn
     y_forecast = y[len(y)-forecast_len:].values # convert to np.ndarray for sklearn
     X_forecast = scaling(X_forecast)
+    return X_forecast, y_forecast
 
 def yahoo_finance_source_to_df(filename):
     """
@@ -105,4 +114,48 @@ def scaling(df):
     X = scaler.transform(df) 
     return X
 
+def testing_data_from_csv(filename_features, filename_variables):
+    """
+    Load cvs file of features and target variables from csv
+    Args:
+        filename_features: string
+        filename_variables: string
+    Returns:
+        pandas.DataFrame
+    """
+    X = pd.read_csv(filename_features, header=0)
+    y = pd.read_csv(filename_variables, header=0)
+    return X, y
+
+def run_model(X, y, model):
+    """
+    Calculates regression performance
+    Args:
+        X: numpy.ndarray
+        y: numpy.ndarray
+        model: sklearn.model
+    Returns:
+        None
+    """
+    X = PolynomialFeatures(degree=2).fit(X).transform(X)
+    results = pd.DataFrame(columns=["MAE test", "MSE test", "R2 test"])
+    y_pred = model.predict(X)
+    mae_test, mse_test, r2_test = performance(y, y_pred)
+    results.loc[len(results)] = [mae_test, mse_test, r2_test]
+    return results
     
+def performance(y_true, y_pred):
+    """
+    Calculates regression performance
+    Args:
+        y_true: numpy.ndarray
+        y_pred: numpy.ndarray
+    Returns:
+        mae: mean_absolute_error
+        mse: mean_squared_error
+        r2: r2
+    """
+    mae = mean_absolute_error(y_true, y_pred)
+    mse = mean_squared_error(y_true, y_pred)
+    r2 = r2_score(y_true, y_pred)
+    return mae, mse, r2

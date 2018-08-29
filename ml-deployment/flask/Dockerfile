@@ -10,6 +10,7 @@ ADD . /mnt/app
 WORKDIR /mnt/app
 
 # install dependencies and app
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 EXPOSE 5000

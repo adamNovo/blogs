@@ -16,6 +16,7 @@ def main():
     elif action == "stop":
         docker_stop()
     elif action == "rm":
+        docker_stop()
         docker_rm()
     elif action == "ssh":
         docker_ssh()
@@ -34,7 +35,6 @@ def docker_stop():
 
 def docker_rm():
     subprocess.call("""
-    docker stop {0};
     docker rm {0};
     """.format(container), shell=True)
 
