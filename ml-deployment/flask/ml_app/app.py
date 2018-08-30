@@ -1,3 +1,4 @@
+import json
 import pandas as pd
 import pickle
 import os
@@ -30,9 +31,10 @@ def forecast_post():
         X, y = preprocess(df)
         model = pickle.load(open("dtree_model.pkl", "rb"))
         print(model)
-        performance_df = run_model(X, y, model)
-        df_json = performance_df.to_json(orient='split')
-        resp = make_response(jsonify({"data": df_json}), 200)
+        performance_df, y_pred = run_model(X, y, model)
+        performance_json = performance_df.to_json(orient='split')
+        resp = make_response(jsonify({"y_pred": json.dumps(y_pred.tolist()), 
+            "performance": performance_json}), 200)
         return resp
     else:
         return make_response(jsonify({"message": "no data"}), 400)
@@ -142,7 +144,7 @@ def run_model(X, y, model):
     y_pred = model.predict(X)
     mae_test, mse_test, r2_test = performance(y, y_pred)
     results.loc[len(results)] = [mae_test, mse_test, r2_test]
-    return results
+    return results, y_pred
     
 def performance(y_true, y_pred):
     """
