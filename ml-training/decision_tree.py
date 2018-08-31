@@ -18,8 +18,8 @@ def main(X: np.ndarray, y: np.ndarray, tscv_idx) -> None:
     Returns:
         None
     """
-    model = tree.DecisionTreeRegressor(splitter="best", max_depth=3,
-        min_samples_split=5, max_leaf_nodes=None, random_state=1)
+    model = tree.DecisionTreeRegressor(splitter="best", max_depth=18,
+        min_samples_split=5, max_leaf_nodes=50, random_state=1)
     results = pd.DataFrame(columns=["final_train_idx", "MAE train", "MSE train", 
         "R2 train", "MAE test", "MSE test", "R2 test"])
     for train_idx, test_idx in tscv_idx:
@@ -29,12 +29,12 @@ def main(X: np.ndarray, y: np.ndarray, tscv_idx) -> None:
         y_test = y[test_idx,:]
         X_train = PolynomialFeatures(degree=2).fit(X_train).transform(X_train)
         X_test = PolynomialFeatures(degree=2).fit(X_test).transform(X_test)
-        model.fit(X_train, y_train)
-        # params = model.get_params()
-        # coef = model.coef_
+        model.fit(X_train, y_train) # params: model.get_params(), coef = model.coef_
         y_pred = model.predict(X_train)
         mae_train, mse_train, r2_train = performance(y_train, y_pred)
         y_pred = model.predict(X_test)
+        print(y_pred[:30])
+        print(y_pred[-30:])
         mae_test, mse_test, r2_test = performance(y_test, y_pred)
         results.loc[len(results)] = [train_idx[-1], mae_train, mse_train, r2_train,
             mae_test, mse_test, r2_test]
@@ -53,11 +53,11 @@ def grid_search(X: np.ndarray, y: np.ndarray, tscv_idx):
         None
     """
     X = PolynomialFeatures(degree=2).fit(X).transform(X)
-    model = tree.DecisionTreeRegressor(splitter="best", max_depth=10,
-        min_samples_split=2, max_leaf_nodes=None, random_state=2)
+    model = tree.DecisionTreeRegressor(splitter="best", max_depth=14,
+        min_samples_split=5, max_leaf_nodes=None, random_state=2)
     splitter = ["best", "random"]
-    max_depth = [3, 4, 5, 6]
-    min_samples_split = [5, 7, 10, 12, 15]
+    max_depth = [14, 16, 18]
+    min_samples_split = [5, 10, 15]
     max_leaf_nodes = [None, 50, 100, 200]
     param_grid = dict(splitter=splitter, max_depth=max_depth, 
         min_samples_split=min_samples_split, max_leaf_nodes=max_leaf_nodes)
