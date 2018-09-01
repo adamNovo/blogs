@@ -1,4 +1,0 @@
-[
-  "tests/test_app.py::test_home",
-  "tests/test_app.py::test_forecast_vs_evaluation"
-]
