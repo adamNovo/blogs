@@ -9,11 +9,9 @@ from sklearn.metrics import mean_absolute_error
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import r2_score
 
-# import generate_features
-
 headers = {"x-api-key": "nnon43on5ion5o34n5oin53"} # local testing only
-# url = "http://127.0.0.1:5005" # local
-url = "https://ml-tutorial.herokuapp.com" # remote
+url = "http://127.0.0.1:5005" # local
+# url = "https://app_name.herokuapp.com" # remote
 
 def test_home():
     """

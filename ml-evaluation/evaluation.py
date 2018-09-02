@@ -50,6 +50,7 @@ def run_model(X, y, model):
     X = PolynomialFeatures(degree=2).fit(X).transform(X)
     results = pd.DataFrame(columns=["MAE test", "MSE test", "R2 test"])
     y_pred = model.predict(X)
+    np.savetxt("evaluation_y_pred.txt", y_pred)
     mae_test, mse_test, r2_test = performance(y, y_pred)
     results.loc[len(results)] = [mae_test, mse_test, r2_test]
     plot_performance(results, "Decision Tree", "tree")
