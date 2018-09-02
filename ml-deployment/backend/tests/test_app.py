@@ -4,13 +4,16 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import requests
-
 from matplotlib import cm
+from sklearn.metrics import mean_absolute_error
+from sklearn.metrics import mean_squared_error
+from sklearn.metrics import r2_score
+
+# import generate_features
 
 headers = {"x-api-key": "nnon43on5ion5o34n5oin53"} # local testing only
-url_local = "http://127.0.0.1:5005"
-url_remote = ""
-url = url_local # select which url to test
+# url = "http://127.0.0.1:5005" # local
+url = "https://ml-tutorial.herokuapp.com" # remote
 
 def test_home():
     """
@@ -25,19 +28,17 @@ def test_forecast_vs_evaluation():
     """
     y_pred_evaluation = np.loadtxt("tests/evaluation_y_pred.txt") # data from evaluation
     forecast_len = len(y_pred_evaluation)
-    df = yahoo_finance_source_to_df("tests/MSFT.csv").tail(forecast_len)
-    df_json = df.to_json(orient='split')
+    df = yahoo_finance_source_to_df("tests/MSFT.csv")
+    df_json = df.tail(forecast_len).to_json(orient='split')
     r = requests.post("{}/forecast".format(url), headers=headers, data=df_json)
     assert r.status_code == 200
-    performance = pd.read_json(r.json()["performance"], orient='split')
     y_pred = json.loads(r.json()["y_pred"])
-    assert 1 == len(performance)
-    assert len(y_pred) == len(df)
+    assert len(y_pred) == len(df.tail(forecast_len))
     y_pred_compare = y_pred[-forecast_len:]
     y_pred_evaluation_compare = y_pred_evaluation[-forecast_len:]
     for i in range(forecast_len):
         assert y_pred_compare[i] == y_pred_evaluation_compare[i]
-    plot_performance(performance, "Deployment performance", "deployment_performance")
+    compare_performance(df.tail(forecast_len+1), y_pred)
 
 def yahoo_finance_source_to_df(filename):
     """
@@ -52,6 +53,35 @@ def yahoo_finance_source_to_df(filename):
     df.columns = ["date", "open", "high", "low", "close", "volume"]
     df["date"] = pd.to_datetime(df["date"])
     return df
+
+def compare_performance(df, y_pred):
+    y = get_target(df)
+    results = pd.DataFrame(columns=["MAE test", "MSE test", "R2 test"])
+    mae_test, mse_test, r2_test = performance(y, y_pred)
+    results.loc[len(results)] = [mae_test, mse_test, r2_test]
+    plot_performance(results, "Deployment performance", "deployment_performance")
+
+def get_target(df):
+    df["return"] = df["close"] / df["close"].shift(1)
+    df["y"] = df["return"].shift(-1)
+    y = df.iloc[:len(df)-1]["y"]
+    return y.values
+
+def performance(y_true, y_pred):
+    """
+    Calculates regression performance
+    Args:
+        y_true: numpy.ndarray
+        y_pred: numpy.ndarray
+    Returns:
+        mae: mean_absolute_error
+        mse: mean_squared_error
+        r2: r2
+    """
+    mae = mean_absolute_error(y_true, y_pred)
+    mse = mean_squared_error(y_true, y_pred)
+    r2 = r2_score(y_true, y_pred)
+    return mae, mse, r2
 
 def plot_performance(results, title, filename):
     """
