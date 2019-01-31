@@ -28,3 +28,6 @@ Name | Formula |
  --- | :---: | --- |
  $ \log(\prod_{k=1}^{n} a_k) $ | = | $ \sum_{k=1}^{n} log(a_k) $ |
  $ \log_b a $ | = | $ \frac{\log_c a}{\log_c b} $ |
+
+ # 4. Finance
+ - $$ C(S_t, t) = N(d_1)*S_t - N(d_2)*Ke^{-r(T-t)} $$
