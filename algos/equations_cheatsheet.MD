@@ -30,4 +30,20 @@ Name | Formula |
  $ \log_b a $ | = | $ \frac{\log_c a}{\log_c b} $ |
 
  # 4. Finance
- - $$ C(S_t, t) = N(d_1)*S_t - N(d_2)*Ke^{-r(T-t)} $$
+ - [Black Scholes](https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model)
+$$ C(S_t, t) = N(d_1)*S_t - N(d_2)*Ke^{-r(T-t)} $$
+$$ d_1 = \frac{1}{\sigma(T-t)^{1/2}} 
+    [\ln(\frac{S_t}{K}) + (r + \frac{\sigma^2}{2}*(T-t)) ]  $$
+$$ d_2 = d_1 - \sigma(T-t)^{1/2}  $$
+$$ N(\cdot ) = $$
+the cumulative distribution function of the standard normal distribution
+$$ {\displaystyle S_{t}} $$
+the spot price of the underlying asset
+$$ {\displaystyle K} $$
+the strike price
+$$ {\displaystyle r} $$
+the risk free rate (annual rate, expressed in terms of continuous compounding)
+$$ {\displaystyle \sigma } $$ 
+the volatility of returns of the underlying asset
+- TBU
+    
