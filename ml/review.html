@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+        <title>ML Review</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+        <link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'HelveticaNeue-Light', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 16px;
+                line-height: 1.6;
+            }
+        </style>
+        
+        <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+    </head>
+    <body>
+        <h1 id="ml-review">ML Review</h1>
+<h2 id="machine-learning-for-trading-cs-7641">Machine Learning for Trading (CS 7641)</h2>
+<ul>
+<li>example x’s: price, bollinger, momentum; y’s: return and future price</li>
+<li>Supervised regression learning: linear regression, KNN, trees, forests</li>
+<li>RL
+<ul>
+<li>Markov decision problem: set of states (in market), set of actions (buy, sell, nothing), transition function T(state, action, state), reward function R(state, action)</li>
+<li>Q Learning: Q’[s,a] = (1-alpha) * Q[s,a] + alpha * improved_estimate</li>
+</ul>
+</li>
+<li>Induction, deduction, supervised learning, unsupervised learning (news, genes), RL, decision trees</li>
+<li>Definitions: instances (input), concept (function), target concept (answer), hypothesis (set of all possible concepts), sample (training set), candidate (possible target concept), testing set. Tree nodes = attributes, edges = values</li>
+<li>Preprocessing (clean, train/test) -&gt; Learning (model, cross-validate, performance, params optimization) -&gt; Evaluation (against test) -&gt; Prediction</li>
+<li>Target function: type of knowledge to be learned (e.g. each possible checkers board score)</li>
+<li>Representation for target function (e.g. linear function of board artifacts, # of pieces, # of pieces threatened)</li>
+<li>Learning mechanism: gradient descent</li>
+<li>Decision Tree: Robust to errors and missing attributes</li>
+<li>Entropy: sum(-p*logp)</li>
+<li>Overfit -&gt; Occam's razor</li>
+<li>NN: Well suited for noisy, complex sensor data, such as inputs from cameras and microphones</li>
+<li>Gradient descent derivation</li>
+<li>Sigmoid: 1/(1-e^-y)</li>
+<li>Instance based learning (KNN): training data in storage and use it to make a forecast</li>
+<li>Other algorithms reduce data into a function, then make predictions ignoring the data</li>
+<li>Bayesian Learning: P(h | D) = P(D | h) * P(h) / P(D)<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo>(</mo><mi>d</mi><mi>i</mi><mi>s</mi><mi>e</mi><mi>a</mi><mi>s</mi><mi>e</mi><mi mathvariant="normal">∣</mi><mi>p</mi><mi>o</mi><mi>s</mi><mo>)</mo><mo>=</mo><mn>21</mn><mi mathvariant="normal">%</mi><mo>=</mo><mn>98</mn><mi mathvariant="normal">%</mi><mo>∗</mo><mn>0.8</mn><mi mathvariant="normal">%</mi><mi mathvariant="normal">/</mi><mo>(</mo><mn>98</mn><mi mathvariant="normal">%</mi><mo>∗</mo><mn>0.8</mn><mi mathvariant="normal">%</mi><mo>+</mo><mn>3</mn><mi mathvariant="normal">%</mi><mo>∗</mo><mn>99.2</mn><mi mathvariant="normal">%</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">P(disease | pos) = 21\% = 98\%*0.8\% / (98\%*0.8\% + 3\%*99.2\%) 
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span><span class="mord mathdefault">a</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span><span class="mord">∣</span><span class="mord mathdefault">p</span><span class="mord mathdefault">o</span><span class="mord mathdefault">s</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord">2</span><span class="mord">1</span><span class="mord">%</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord">9</span><span class="mord">8</span><span class="mord">%</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">8</span><span class="mord">%</span><span class="mord">/</span><span class="mopen">(</span><span class="mord">9</span><span class="mord">8</span><span class="mord">%</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.08333em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">8</span><span class="mord">%</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord">3</span><span class="mord">%</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">9</span><span class="mord">9</span><span class="mord">.</span><span class="mord">2</span><span class="mord">%</span><span class="mclose">)</span></span></span></span></span></p>
+</li>
+<li>Pros/cons: DT, KNN, Boosting, SVM, NN, Bayes, Random Opt/Annealing</li>
+<li>Review
+<ul>
+<li>Maximum a posteriori MAP = argmaxh P(D | h) * P(h)</li>
+<li>Maximum likelihood ML = argmaxh P(D | h)</li>
+</ul>
+</li>
+<li>EM: Will not diverge, may not converge, can get stuck - must random restart</li>
+<li>K-means: randomly select k centers (points), assign each point to cluster (E), recalculate centers (M)</li>
+<li>Feature selection: exponential problem 2^n</li>
+<li>Filtering: selecting features first, then running algo, ignores learning problem, fast. Can use decision tree to select which features give most info. gain, then pass those features to another learner such NN</li>
+<li>Wrapping (optimizing algorithm based on given features and reiterating, slower). forward search (run learner with each feature independently, keep the best, add one more feature in addition to first and iterate as long as error improves)</li>
+<li>Feature transformation: PCA (Maximizes variance, Mutually orthogonal), ICA (Cocktail party problem: extract voice from multiple sources in a party)</li>
+</ul>
+
+    </body>
+    </html>
