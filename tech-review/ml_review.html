@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+        <title>ML Review</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+        <link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 16px;
+                line-height: 1.6;
+            }
+        </style>
+        
+        <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+    </head>
+    <body>
+        <h1 id="ml-review">ML Review</h1>
+<h2 id="machine-learning-for-trading-cs-7641">Machine Learning for Trading (CS 7641)</h2>
+<ul>
+<li>example x’s: price, bollinger, momentum; y’s: return and future price</li>
+<li>Supervised regression learning: linear regression, KNN, trees, forests</li>
+<li>RL
+<ul>
+<li>Markov decision problem: set of states (in market), set of actions (buy, sell, nothing), transition function T(state, action, state), reward function R(state, action)</li>
+<li>Q Learning: Q’[s,a] = (1-alpha) * Q[s,a] + alpha * improved_estimate</li>
+</ul>
+</li>
+<li>Induction, deduction, supervised learning, unsupervised learning (news, genes), RL, decision trees</li>
+<li>Definitions: instances (input), concept (function), target concept (answer), hypothesis (set of all possible concepts), sample (training set), candidate (possible target concept), testing set. Tree nodes = attributes, edges = values</li>
+<li>Preprocessing (clean, train/test) -&gt; Learning (model, cross-validate, performance, params optimization) -&gt; Evaluation (against test) -&gt; Prediction</li>
+<li>Target function: type of knowledge to be learned (e.g. each possible checkers board score)</li>
+<li>Representation for target function (e.g. linear function of board artifacts, # of pieces, # of pieces threatened)</li>
+<li>Learning mechanism: gradient descent</li>
+<li>Decision Tree: Robust to errors and missing attributes</li>
+<li>Entropy: sum(-p*logp)</li>
+<li>Overfit -&gt; Occam's razor</li>
+<li>NN: Well suited for noisy, complex sensor data, such as inputs from cameras and microphones</li>
+<li>Gradient descent derivation</li>
+<li>Sigmoid: 1/(1-e^-y)</li>
+<li>Instance based learning (KNN): training data in storage and use it to make a forecast</li>
+<li>Other algorithms reduce data into a function, then make predictions ignoring the data</li>
+<li>Bayesian Learning: P(h | D) = P(D | h) * P(h) / P(D)<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>P</mi><mo>(</mo><mi>d</mi><mi>i</mi><mi>s</mi><mi>e</mi><mi>a</mi><mi>s</mi><mi>e</mi><mi mathvariant="normal">∣</mi><mi>p</mi><mi>o</mi><mi>s</mi><mo>)</mo><mo>=</mo><mn>21</mn><mi mathvariant="normal">%</mi><mo>=</mo><mn>98</mn><mi mathvariant="normal">%</mi><mo>∗</mo><mn>0.8</mn><mi mathvariant="normal">%</mi><mi mathvariant="normal">/</mi><mo>(</mo><mn>98</mn><mi mathvariant="normal">%</mi><mo>∗</mo><mn>0.8</mn><mi mathvariant="normal">%</mi><mo>+</mo><mn>3</mn><mi mathvariant="normal">%</mi><mo>∗</mo><mn>99.2</mn><mi mathvariant="normal">%</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">P(disease | pos) = 21\% = 98\%*0.8\% / (98\%*0.8\% + 3\%*99.2\%) 
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span><span class="mord mathdefault">a</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span><span class="mord">∣</span><span class="mord mathdefault">p</span><span class="mord mathdefault">o</span><span class="mord mathdefault">s</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord">2</span><span class="mord">1</span><span class="mord">%</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord">9</span><span class="mord">8</span><span class="mord">%</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">8</span><span class="mord">%</span><span class="mord">/</span><span class="mopen">(</span><span class="mord">9</span><span class="mord">8</span><span class="mord">%</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.08333em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">8</span><span class="mord">%</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord">3</span><span class="mord">%</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">9</span><span class="mord">9</span><span class="mord">.</span><span class="mord">2</span><span class="mord">%</span><span class="mclose">)</span></span></span></span></span></p>
+</li>
+<li>Pros/cons: DT, KNN, Boosting, SVM, NN, Bayes, Random Opt/Annealing</li>
+<li>Review
+<ul>
+<li>Maximum a posteriori MAP = argmaxh P(D | h) * P(h)</li>
+<li>Maximum likelihood ML = argmaxh P(D | h)</li>
+</ul>
+</li>
+<li>EM: Will not diverge, may not converge, can get stuck - must random restart</li>
+<li>K-means: randomly select k centers (points), assign each point to cluster (E), recalculate centers (M)</li>
+<li>Feature selection: exponential problem 2^n</li>
+<li>Filtering: selecting features first, then running algo, ignores learning problem, fast. Can use decision tree to select which features give most info. gain, then pass those features to another learner such NN</li>
+<li>Wrapping (optimizing algorithm based on given features and reiterating, slower). forward search (run learner with each feature independently, keep the best, add one more feature in addition to first and iterate as long as error improves)</li>
+<li>Feature transformation: PCA (Maximizes variance, Mutually orthogonal), ICA (Cocktail party problem: extract voice from multiple sources in a party)</li>
+</ul>
+<h2 id="machine-learning-cs-7641">Machine Learning (CS 7641)</h2>
+<ul>
+<li>PCA: Obtain the Eigenvectors and Eigenvalues from the covariance matrix or correlation matrix. Sort eigenvalues in decreasing order</li>
+<li>Value Iteration, Policy Iteration, and Q-Learning</li>
+<li>Feature selection =&gt; curse of dimensionality (amount of data needed is 2^n, where n is the number of features)</li>
+</ul>
+<h2 id="reinforcement-learning-cs-7642">Reinforcement Learning (CS 7642)</h2>
+<ul>
+<li>RL: model is unknown or difficult to work with directly</li>
+<li>states (S), actions (A), rewards (R)</li>
+<li>methods for solving finite Markov decision problems:
+<ul>
+<li>dynamic programming: methods are well developed mathematically, but require a complete and accurate model of the environment</li>
+<li>Monte Carlo methods: methods don't require a model and are conceptually simple, but are not well suited for step-by-step incremental computation</li>
+<li>temporal-difference learning: methods require no model and are fully incremental, but are more complex to analyze. Monte Carlo methods must wait until the end of the episode to determine the increment, TD methods need wait only until the next time step</li>
+</ul>
+</li>
+<li>Q-learning. ε-greedy guarantees convergence if</li>
+</ul>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>∑</mo><mi>α</mi><mo>=</mo><mi mathvariant="normal">∞</mi><mo separator="true">;</mo><mo>∑</mo><msup><mi>α</mi><mn>2</mn></msup><mo>&lt;</mo><mi mathvariant="normal">∞</mi></mrow><annotation encoding="application/x-tex">∑\alpha =\infty ; ∑\alpha^2 &lt; \infty 
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.6000100000000002em;vertical-align:-0.55001em;"></span><span class="mop op-symbol large-op" style="position:relative;top:-0.000004999999999977245em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.6000100000000002em;vertical-align:-0.55001em;"></span><span class="mord">∞</span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-symbol large-op" style="position:relative;top:-0.000004999999999977245em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.0037em;">α</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord">∞</span></span></span></span></span></p>
+<ul>
+<li>
+<p>Sarsa update</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>Q</mi><mi>t</mi></msub><mo>=</mo><msub><mi>Q</mi><mi>t</mi></msub><mo>+</mo><mi>α</mi><mo>(</mo><mi>r</mi><mo>+</mo><mi>γ</mi><mi>Q</mi><mo>(</mo><msub><mi>s</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo separator="true">,</mo><msub><mi>a</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>)</mo><mi mathvariant="normal">−</mi><mi>Q</mi><mo>(</mo><msub><mi>s</mi><mi>t</mi></msub><mo separator="true">,</mo><msub><mi>a</mi><mi>t</mi></msub><mo>)</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">Q_t = Q_t + \alpha(r + \gamma Q(s_{t+1}, a_{t+1}) − Q(s_t, a_t)) 
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.05556em;">γ</span><span class="mord mathdefault">Q</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.301108em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.301108em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord">−</span><span class="mord mathdefault">Q</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></span></p>
+</li>
+<li>
+<p>partially observable Markov decision processes: the agent does not simply know its state and must take actions to gain state-related information</p>
+</li>
+<li>
+<p>Q-Learning (off-policy greedy)</p>
+</li>
+<li>
+<p>SARSA (on-policy)</p>
+</li>
+<li>
+<p>Deep Q Network</p>
+</li>
+<li>
+<p>Plans: fixed, conditional (if statements), stationary
+policy/universal plan (mapping from state -&gt; action, RL focus)</p>
+</li>
+<li>
+<p>Summarize policy</p>
+<ul>
+<li>One sequence: sum of rewards</li>
+<li>Over many sequences: average expectation</li>
+</ul>
+</li>
+<li>
+<p>Evaluate learner: total value, computational complexity (time),
+sample complexity (time)</p>
+</li>
+<li>
+<p>Incremental learning</p>
+</li>
+</ul>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>V</mi><mi>T</mi></msub><mo>(</mo><msub><mi>S</mi><mn>1</mn></msub><mo>)</mo><mo>=</mo><msub><mi>V</mi><mrow><msub><mi>T</mi><mi mathvariant="normal">−</mi></msub><mn>1</mn></mrow></msub><mo>(</mo><msub><mi>S</mi><mn>1</mn></msub><mo>)</mo><mo>+</mo><msub><mi>α</mi><mi>T</mi></msub><mo>[</mo><msub><mi>R</mi><mi>T</mi></msub><mo>(</mo><msub><mi>S</mi><mn>1</mn></msub><mo>)</mo><mi mathvariant="normal">−</mi><msub><mi>V</mi><mrow><mi>T</mi><mi mathvariant="normal">−</mi><mn>1</mn></mrow></msub><mo>(</mo><msub><mi>S</mi><mn>1</mn></msub><mo>)</mo><mo>]</mo></mrow><annotation encoding="application/x-tex">V_T (S_1) = V_{T_−1}(S_1) + \alpha_T [R_T (S_1) − V_{T−1}(S_1)] 
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.041765em;vertical-align:-0.291765em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.328331em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2736642857142857em;"><span style="top:-2.357em;margin-left:-0.13889em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">−</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.20252142857142857em;"><span></span></span></span></span></span></span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.291765em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.0037em;">α</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.0037em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">[</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord">−</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.328331em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">T</span><span class="mord mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mclose">]</span></span></span></span></span></p>
+<ul>
+<li>Where</li>
+</ul>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>α</mi><mi>T</mi></msub><mo>=</mo><mn>1</mn><mi mathvariant="normal">/</mi><mi>T</mi></mrow><annotation encoding="application/x-tex">α_T = 1 / T 
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.0037em;">α</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.0037em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span></span></span></span></span></p>
+<ul>
+<li>Must satisfy</li>
+</ul>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>∑</mo><mi>α</mi><mo>=</mo><mi mathvariant="normal">∞</mi><mo separator="true">;</mo><mo>∑</mo><msup><mi>α</mi><mn>2</mn></msup><mo>&lt;</mo><mi mathvariant="normal">∞</mi></mrow><annotation encoding="application/x-tex">∑\alpha =\infty ; ∑\alpha^2 &lt; \infty 
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.6000100000000002em;vertical-align:-0.55001em;"></span><span class="mop op-symbol large-op" style="position:relative;top:-0.000004999999999977245em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.6000100000000002em;vertical-align:-0.55001em;"></span><span class="mord">∞</span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-symbol large-op" style="position:relative;top:-0.000004999999999977245em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.0037em;">α</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord">∞</span></span></span></span></span></p>
+<ul>
+<li>Examples</li>
+</ul>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>∑</mo><mi>α</mi><mo>=</mo><mn>1</mn><mi mathvariant="normal">/</mi><mi>T</mi></mrow><annotation encoding="application/x-tex">∑\alpha = 1 / T 
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.6000100000000002em;vertical-align:-0.55001em;"></span><span class="mop op-symbol large-op" style="position:relative;top:-0.000004999999999977245em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span></span></span></span></span></p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>∑</mo><mi>α</mi><mo>=</mo><mo>(</mo><mn>1</mn><mi mathvariant="normal">/</mi><mi>T</mi><msup><mo>)</mo><mrow><mn>2</mn><mi mathvariant="normal">/</mi><mn>3</mn></mrow></msup></mrow><annotation encoding="application/x-tex">∑\alpha = (1 / T)^{2/3}  
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.6000100000000002em;vertical-align:-0.55001em;"></span><span class="mop op-symbol large-op" style="position:relative;top:-0.000004999999999977245em;">∑</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.188em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.938em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight">/</span><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p>TODO Next notes_2017.pdf p 157</p>
+<h2 id="ai-cs-6601">AI (CS 6601)</h2>
+<ul>
+<li>AI (pass Turing test): natural language processing, knowledge representation, automated reasoning, machine learning (extrapolate), computer vision, robotics (manipulate objects)</li>
+<li>Minimax time: <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>b</mi><mi>m</mi></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(b^m)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">b</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">m</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span> where b is the number of actions and m number of steps (depth of the tree)</li>
+<li>Search: BFS, DFS, Cheapest first search (explored shortest total length), A*</li>
+<li>
+<ul>
+<li>Annealing: use temperature as a proxy for randomness. Start with high temperature (high randomness) and slowly lower it (low randomness)</li>
+</ul>
+</li>
+<li>Travelling salesman: randomly connect cities, then remove any crossings of paths (within 1% of optimal)</li>
+<li>Genetic algorithms: determine score for each state. Higher scores have higher probability to appear in next generations. Crossover with other state for breed new, more optimal states</li>
+<li>Decision theory = probability theory + utility theory</li>
+<li>Bayes rule: P(cause | effect) = P(effect | cause)P(cause) / P(effect)</li>
+<li>ML: KNN, Gaussian, Naive Byers
+<ul>
+<li>DT: decide each variable to split on based on information gain. Info gain is the expected reduction in entropy</li>
+<li>Boosting: use weak classifiers and combine then by weighting errors more</li>
+<li>NN: perceptron and backprop</li>
+<li>K-means: assigning to clusters and updating means of clusters correspond respectively to the E (expectation) and (maximization) steps of the EM algorithm. O(k*n) where k is the k means and n is number of data</li>
+</ul>
+</li>
+<li>Learning from Examples</li>
+<li>Cross validation methodology: k-fold training set and test set</li>
+<li>Regularization: process of explicitly penalizing complex
+hypotheses</li>
+<li>Hidden Markov Models</li>
+</ul>
+<h2 id="data-visualization-cse-6242">Data Visualization (CSE 6242)</h2>
+<ul>
+<li>1D data: histogram, strip plot, box plot</li>
+<li>2D data: scatter plot, line plot</li>
+<li>3D+: multivariate scatter, facets, contour</li>
+<li>Strip plot: x-axis description, y-axis value</li>
+<li>Histograms: x-axis bar label, y-axis count</li>
+<li>Multivariable scatter: use point type to distinguish 3rd dimension</li>
+<li>Missing Completely At Random (MCAR): probability that data is missing does not depend on observed or unobserved measurements. All solutions possible</li>
+<li>Missing At Random (MAR): probability that data is missing does not depend on unobserved data. May introduce bias</li>
+<li>Solutions:
+<ul>
+<li>Remove entire row</li>
+<li>Replace with most likely value</li>
+<li>Imputation: Build a probability model and sample from the model</li>
+</ul>
+</li>
+<li>Outliers detection:
+<ul>
+<li>Below and above certain percentile (robust)</li>
+<li>More than x standard deviations (requires the computation of mean and median which is not robust given outliers)</li>
+</ul>
+</li>
+<li>Solutions:
+<ul>
+<li>Truncate: remove all outliers</li>
+<li>Winsorization: shrink to the border of the main part of data</li>
+<li>Robust procedure: keep all data, choose robust procedure (such as median)</li>
+</ul>
+</li>
+<li>Transformation: Highly skewed distribution -&gt; transformation -&gt; map data to common distribution (Gaussian or Gamma) -&gt; fit model</li>
+<li>power transform: <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><msup><mi>x</mi><mi>λ</mi></msup><mo>−</mo><mn>1</mn></mrow><mi>λ</mi></mfrac></mrow><annotation encoding="application/x-tex">\frac{x^\lambda-1}{\lambda}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.3879199999999998em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.0429199999999998em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">λ</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9270285714285713em;"><span style="top:-2.931em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathdefault mtight">λ</span></span></span></span></span></span></span></span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>
+<ul>
+<li>lambda &gt; 1: convex, removes left skew</li>
+<li>lambda &lt; 1: concave, removes right skew</li>
+<li>lambda choice: histogram or log-log plot</li>
+</ul>
+</li>
+<li>Other transforms: binnning, binarization (0-1), tall vs wide data (easier to analyze, hard to remove)</li>
+<li>Logistic regression</li>
+<li>If data not linearly separable in original dim (eg 2D): increase dimension (x1, x2) =&gt; (1, x1, x2, x1^2, x2^2, x1x2)</li>
+</ul>
+<h2 id="ml-crash-course-google">ML Crash Course Google</h2>
+<ul>
+<li>Terminology: labels, features, examples, models</li>
+<li>A regression model predicts continuous values</li>
+<li>A classification model predicts discrete values</li>
+<li>Regression:
+<ul>
+<li>loss is a number indicating how bad the model's prediction was</li>
+<li>Mean square error (MSE) is the average squared loss per example over the whole dataset</li>
+</ul>
+</li>
+<li>Gradient descent, convergence, training, loss</li>
+<li>A Machine Learning model is trained by starting with an initial guess for the weights and bias and iteratively adjusting those guesses until learning the weights and bias with the lowest possible loss.</li>
+<li>gradient always points in the direction of steepest increase in the loss function</li>
+<li>gradient descent algorithm takes a step in the direction of the negative gradient</li>
+<li>Stochastic gradient descent (SGD) uses only a single example (a batch size of 1 per iteration</li>
+<li>TensorFlow: Tensors are N-dimensional (where N could be very large) data structures, most commonly scalars, vectors, or matrices</li>
+<li>Estimator (tf.estimator)         High-level, OOP API.</li>
+<li>tf.layers/tf.losses/tf.metrics         Libraries for common model components.</li>
+<li>TensorFlow         Lower-level APIs</li>
+<li>TensorFlow consists of the following two components:
+<ul>
+<li>a graph protocol buffer</li>
+<li>a runtime that executes the (distributed) graph</li>
+</ul>
+</li>
+<li>These two components are analogous to Python code and the Python interpreter</li>
+</ul>
+<h1 id="supervised">Supervised</h1>
+<p>...</p>
+<h1 id="unsupervised">Unsupervised</h1>
+<p>...</p>
+<h1 id="reinforcement">Reinforcement</h1>
+<p>...</p>
+<h1 id="other">Other</h1>
+<h2 id="data-science-for-startups-data-pipelines">Data Science for Startups: Data Pipelines</h2>
+<ul>
+<li><a href="https://towardsdatascience.com/data-science-for-startups-data-pipelines-786f6746a59a">towardsdatascience.com/data-science-for-startups-data-pipelines-786f6746a59a</a></li>
+<li>low latency</li>
+<li>scalability</li>
+<li>interactive querying</li>
+<li>versioning</li>
+<li>monitoring</li>
+<li>testing</li>
+</ul>
+
+    </body>
+    </html>
