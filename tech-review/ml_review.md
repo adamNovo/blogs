@@ -143,16 +143,50 @@ hypotheses
   - a runtime that executes the (distributed) graph
 - These two components are analogous to Python code and the Python interpreter
 
-# Supervised
+
+
+# CONSOLIDATED:
+
+# Supervised Learning
+## Linear Regression
+
+- Variance
+  - sample: $\frac{\sum(y_i - \bar{y})^2}{n-2}$
+  - costs us 2 degrees of freedom to estimate b0 and b1: therefore, n-2
+- $R^2$ 
+  - quantifies the strength of a linear relationship, $R^2$ could be 0 but there could be a non-linear relationship
+  - value should not be interpreted as meaning that the estimated regression line fits the data well (it might be slightly curved)
+  - coefficient of determination $R^2$ could be greatly affected by just one data point
+
+Source: 
+  - [onlinecourses.science.psu.edu/stat501/node/253](https://onlinecourses.science.psu.edu/stat501/node/253/)
+
+# Unsupervised Learning
 ...
 
-# Unsupervised
-...
+# Reinforcement Learning
+- Sarsa: On-Policy TD Control
+  $$ Q(S_t, A_t) = Q(S_t, A_t) + \alpha * [R_{t+1} + \gamma*Q(S_{t+1}, A_{t+1}) - Q(S_t, A_t)] $$
+- Q-learning: Off-Policy TD Control
+  $$ Q(S_t, A_t) = Q(S_t, A_t) + \alpha * [R_{t+1} + \gamma*\max_{a}Q(S_{t+1}, a) - Q(S_t, A_t)] $$
 
-# Reinforcement
-...
+# Time series
+- Algorithm requirements:
+  - extrapolate patterns outside of the domain of training data
+  - derive confidence intervals
+- Most common algos
+Linear regression
+  - +Handles different time series
+  - +High interpretability
+  - -Sensitive to outliers
+  - -Narrow confidence intervals
+  Exponential smoothing
+  ARIMA (Autoregressive Integrated Moving Average)
+  Dynamic Linear Model
+- Sources
+  - [datascience.com/blog/time-series-forecasting-machine-learning-differences](https://www.datascience.com/blog/time-series-forecasting-machine-learning-differences)
 
-# Other
+# Articles
 ## Data Science for Startups: Data Pipelines
 - [towardsdatascience.com/data-science-for-startups-data-pipelines-786f6746a59a](https://towardsdatascience.com/data-science-for-startups-data-pipelines-786f6746a59a)
 - low latency
