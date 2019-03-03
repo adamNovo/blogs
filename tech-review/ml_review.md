@@ -150,6 +150,25 @@ hypotheses
 # Supervised Learning
 ## Linear Regression
 
+- Assumptions
+  - LINE assumptions for confidence intervals: 
+    - Linearity: each y is a linear combination of features
+    - Independent errors
+    - Normal errors
+    - Equal error variances
+    - (x must is within scope of the model)
+  - if all tested is that the slope β1 is 0, you should be okay even if it appears that the normality condition is violated
+  - if you want to use your model to predict a future response ynew, then you are likely to get inaccurate results if the error terms are not normally distributed
+  - Tests
+    - Plot predicted values y (x-axis) vs errors size (y-axis)
+    - Plot each INCLUDED predictor (x-axis) vs errors size (y-axis)
+    - Histogram of residuals (should be appx normal)
+    - Scatter of residuals (x-axis) vs percent (log y-axis): should be appx straight
+    - Plot each EXCLUDED predictor (x-axis) vs errors size (y-axis). Consider including if a useful trend appears
+    - Anderson-Darling Test: area between a fitted line and a nonparametric step function
+    - Shapiro-Wilk Test
+    - Ryan-Joiner Test
+    - Kolmogorov-Smirnov Test: compares the empirical cumulative distribution function of sample data with the distribution expected if the data were normal
 - Variance
   - sample: $\frac{\sum(y_i - \bar{y})^2}{n-2}$
   - costs us 2 degrees of freedom to estimate b0 and b1: therefore, n-2
@@ -157,6 +176,12 @@ hypotheses
   - quantifies the strength of a linear relationship, $R^2$ could be 0 but there could be a non-linear relationship
   - value should not be interpreted as meaning that the estimated regression line fits the data well (it might be slightly curved)
   - coefficient of determination $R^2$ could be greatly affected by just one data point
+- Confidence interval
+  - $\bar{y} +- t * sd$
+  - $\beta +- t*(\frac{MSE}{\sum_i(y_i - \bar{y})})^{1/2} = t*(\frac{\sum_i(y_i - \hat{y})/n}{\sum_i(y_i - \bar{y})})^{1/2}$
+- Analysis of Variance (ANOVA)
+  - <img src="images/anova.png">
+- TBU
 
 Source: 
   - [onlinecourses.science.psu.edu/stat501/node/253](https://onlinecourses.science.psu.edu/stat501/node/253/)
