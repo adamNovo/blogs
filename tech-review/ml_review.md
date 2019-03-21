@@ -176,24 +176,97 @@ hypotheses
   - quantifies the strength of a linear relationship, $R^2$ could be 0 but there could be a non-linear relationship
   - value should not be interpreted as meaning that the estimated regression line fits the data well (it might be slightly curved)
   - coefficient of determination $R^2$ could be greatly affected by just one data point
+  - always increases (or stays the same) as more predictors are added to a multiple linear regression model, even if the predictors added are unrelated to the response variable
 - Confidence interval
   - $\bar{y} +- t * sd$
   - $\beta +- t*(\frac{MSE}{\sum_i(y_i - \bar{y})})^{1/2} = t*(\frac{\sum_i(y_i - \hat{y})/n}{\sum_i(y_i - \bar{y})})^{1/2}$
 - Analysis of Variance (ANOVA)
   - <img src="images/anova.png">
-- TBU
+- [Hypothesis test](https://newonlinecourses.science.psu.edu/stat501/node/311/)
+  - t* = (sample coefficient - hypothesized value) / standard error of coefficient.
+  - testing if $b_1=0$
+    - $t^* = (b_1 - 0) / SE(b_1)$
+- [Model evaluation](https://newonlinecourses.science.psu.edu/stat501/node/295/)
+  - Define a larger full model
+  - Define a smaller reduced model. (one with fewer parameters.)
+  - Use an F-statistic to decide whether or not to reject the smaller reduced model in favor of the larger full model. Low t-statistic > reject smaller model.
+  - Test if model_reduced = model_full
+  - $F^* = (SSE(R) - SSE(F))/(df_r - df_f) / (SSE(F) / df_f)$
+    - df: degrees of freedom, number of observations n - number of parameters
+  - If t > 0.05 => cannot reject null hypotheses
+- [Categorical Predictors](https://newonlinecourses.science.psu.edu/stat501/node/301/)
+  - When two predictors do not interact, we say that each predictor has an "additive effect"
+  - Leaving out interacting terms may make the entire model insignificant
+  - Piecewise model: introduce new variable for subset of data if function is piecewise: $y = b + w_1*x + w_2*(x-70)$
+    - Allows for two lines to be fit: < 70 and > 70
+- [Model building](https://onlinecourses.science.psu.edu/stat501/node/328/)
+  - model is underspecified
+    - biased regression coefficients and biased predictions of the response
+  - model is overspecified: contains one or more extraneous variables (unrelated to features or target)
+    - unbiased regression coefficients, unbiased predictions of the response, and an unbiased MSE BUT confidence intervals tend to be wider
+    - should not be used to describe the effect of a predictor
+    - If only the prediction of response is important: multicollinearity is less concerning
+  - Stepwise Regression: entering and removing predictors
+    - Specify an Alpha-to-Enter: eg 0.15, Specify an Alpha-to-Remove: e.g. 0.15
+    - Add the most signification feature first
+    - Next, add the second most significant test tge model including the most significant
+      - If the first feature becomes not significant by including the most significant second feature, remove the first
+    - Continue with the next feature
+  - Best Subsets Regression
+    - select the subset of features that best meet an objective, such as the largest R2 value or the smallest MSE
+    - given n features, we have 2^n possible models
+    - to cut down on the size to to explore, find few best with 1 feature, few best with 2 features, few best with 3 features ... and then compare
+    - R2-adj makes adjustments for model size (no of features) so it's better for comparing across different models than raw R2
+    - To select the best model from those suggested by the 2 procedures, check for multicolinearity. No none present, take the simpliest
+  - Information Criteria
+    - Bayesian Information Criterion (BIC): $n*ln(SSE) - n*ln(n) + p*ln(n)$
+    - places a higher penalty on the number of parameters in the model so will tend to reward more parsimonious (smaller) models. lower BIC is better
+- Influential points
+  - Outliers: extreme y
+  - High leverage points: extreme x
+  - MSE is substantially inflated by the presence of the outlier
+  - Handling data errors:
+    - If the error is just a data entry or data collection error, correct it.
+    - If the data point is not representative of the intended study population, delete it.
+    - If the data point is a procedural error and invalidates the measurement, delete it.
+  - Did you leave out any important predictors?
+  - Should you consider adding some interaction terms?
+  - Is there any nonlinearity that needs to be modeled?
+- [Multicollinearity](https://onlinecourses.science.psu.edu/stat501/node/344/)
+  - two or more of the predictors in a regression model are moderately or highly correlated
+  - Structural multicollinearity is a mathematical artifact caused by creating new predictors from other predictors
+  - Data-based multicollinearity is a result of reliance on purely observational data, or the inability to manipulate the system on which the data are collected
+  - Perfectly uncorrelated coefficients
+    - SE of regression, SE of features, coef of features are the same in case of multiple and single regression
+  - Highly correlated features
+    - the estimated coefficient of any one variable depends on which other predictor variables are included in the model
+    - precision of the estimated regression coefficients decreases
+    - does not prevent good, precise predictions
+  - detecting multicollinearity using Variance Inflation Factors quantifies how much the variance is inflated
+  - to remove structural correlation (x+x^2), we need to center the feature x
 
-Source: 
-  - [onlinecourses.science.psu.edu/stat501/node/253](https://onlinecourses.science.psu.edu/stat501/node/253/)
+## Logistic Regression
+- Precision: TP / (TP + FP)
+- Recall: TP / (TP + FN)
+- F1 score: 2*(precission * recall) / (precission + recall)
+  - [source](https://towardsdatascience.com/beyond-accuracy-precision-and-recall-3da06bea9f6c)
+  
+
 
 # Unsupervised Learning
 ...
+
+
 
 # Reinforcement Learning
 - Sarsa: On-Policy TD Control
   $$ Q(S_t, A_t) = Q(S_t, A_t) + \alpha * [R_{t+1} + \gamma*Q(S_{t+1}, A_{t+1}) - Q(S_t, A_t)] $$
 - Q-learning: Off-Policy TD Control
   $$ Q(S_t, A_t) = Q(S_t, A_t) + \alpha * [R_{t+1} + \gamma*\max_{a}Q(S_{t+1}, a) - Q(S_t, A_t)] $$
+- Solving the Multi-Armed Bandit Problem
+  - Q_k = 1/k * (r_1 + r_2 + r_3 ... + r_k)
+  - Q_k+1 = Q_k + 1/(k+1) * (r_k+1 - Q_k)
+  - [towardsdatascience.com/solving-the-multi-armed-bandit-problem-b72de40db97c](https://towardsdatascience.com/solving-the-multi-armed-bandit-problem-b72de40db97c)
 
 # Time series
 - Algorithm requirements:
@@ -211,12 +284,49 @@ Linear regression
 - Sources
   - [datascience.com/blog/time-series-forecasting-machine-learning-differences](https://www.datascience.com/blog/time-series-forecasting-machine-learning-differences)
 
+## Preprocessing
+### outliers
+### missing values
+### duplicates
+### feature correlation
+### skew / class distribution
+- collect more data
+- use a difference metric: precision / recall / F1 score
+- over or under sampling (copy infrequent classes, remove frequent)
+- generate synthetic samples
+- try different algorithms (decision trees often perform well on imbalanced datasets)
+- different perspective (anomaly detection and change detection)
+  - [machinelearningmastery.com/tactics-to-combat-imbalanced-classes-in-your-machine-learning-dataset/](https://machinelearningmastery.com/tactics-to-combat-imbalanced-classes-in-your-machine-learning-dataset/)
+  
+- If important predictor variables are omitted, see whether adding the omitted predictors improves the model.
+  - [onlinecourses.science.psu.edu/stat501/node/318/](https://onlinecourses.science.psu.edu/stat501/node/318/)
+- If the mean of the response is not a linear function of the predictors, try a different function. For example, polynomial regression
+- If there are unequal error variances, try transforming the response and/or predictor variables or use weighted least squares regression.
+  - each observation i is weighted by $1/\sigma_i^2$
+- If an outlier exists, try using a "robust estimation procedure."
+- If error terms are not independent, try fitting a "time series model."
+- transforming the x values is appropriate when non-linearity is the only problem — the independence, normality and equal variance conditions are met
+- if the error terms are well-behaved, transforming the y values could change them into badly-behaved error terms
+- transforming the response y values should be considered when non-normality and/or unequal variances
+- typically try ln transformation for non-linearity. Others e^-x, 1/x, ln(y), ln(y) + ln(x)
+- transforming the y-variable changes the variance of the y-variable and the errors
+- interaction terms (x1*x2): if $X_1*X_2$ is shown to be a statistically significant predictor of Y, then your model should also include the "main effects" $X_1$ and $X_2$
+
+
 # Articles
-## Data Science for Startups: Data Pipelines
-- [towardsdatascience.com/data-science-for-startups-data-pipelines-786f6746a59a](https://towardsdatascience.com/data-science-for-startups-data-pipelines-786f6746a59a)
+
+### Data Science for Startups: Data Pipelines
 - low latency
 - scalability
 - interactive querying
 - versioning
 - monitoring
 - testing
+- [towardsdatascience.com/data-science-for-startups-data-pipelines-786f6746a59a](https://towardsdatascience.com/data-science-for-startups-data-pipelines-786f6746a59a)
+
+### Estimating Probabilities with Bayesian Modeling in Python
+- Bayesian Model: (p | x, a). x are actual samples, a are prior beliefs
+- parameter vector for a multinomial is drawn from a Dirichlet Distribution
+  - (p | x, a) = (c_i + a_i) / (N + sum(a_i))
+- [towardsdatascience.com/estimating-probabilities-with-bayesian-modeling-in-python-7144be007815](https://towardsdatascience.com/estimating-probabilities-with-bayesian-modeling-in-python-7144be007815)
+
