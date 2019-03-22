@@ -16,6 +16,9 @@
   - [PCA](#pca)
   - [Anomaly Detection](#anomaly-detection)
 - [Reinforcement Learning](#reinforcement-learning)
+  - [Model-based](#model-based)
+  - [Value-based](#value-based)
+  - [Other](#other)
 - [Preprocessing](#preprocessing)
   - [One time - prior to pipeline](#one-time---prior-to-pipeline)
     - [outliers](#outliers)
@@ -119,6 +122,7 @@ Sources:
   - t* = (sample coefficient - hypothesized value) / standard error of coefficient.
   - testing if $b_1=0$
     - $t^* = (b_1 - 0) / SE(b_1)$
+  - <img src="images/hypothesis_tests.jpg">
 - [Model evaluation](https://newonlinecourses.science.psu.edu/stat501/node/295/)
   - Define a larger full model
   - Define a smaller reduced model. (one with fewer parameters.)
@@ -257,10 +261,24 @@ Linear regression
 
 
 # Reinforcement Learning
-- Sarsa: On-Policy TD Control
-  $$ Q(S_t, A_t) = Q(S_t, A_t) + \alpha * [R_{t+1} + \gamma*Q(S_{t+1}, A_{t+1}) - Q(S_t, A_t)] $$
-- Q-learning: Off-Policy TD Control
-  $$ Q(S_t, A_t) = Q(S_t, A_t) + \alpha * [R_{t+1} + \gamma*\max_{a}Q(S_{t+1}, a) - Q(S_t, A_t)] $$
+
+<img src="images/rl_algorithms.svg">
+
+## Model-based
+- Learn model of the world, update and re-plan often
+- Very data efficient, once model is learned
+- E.g. Chess
+## Value-based
+- Learn state or state-action
+- Exploration is necessary
+- Q-Learning
+  - $Q(S_t, A_t) = Q(S_t, A_t) + \alpha * [R_{t+1} + \gamma*\max_{a}Q(S_{t+1}, a) - Q(S_t, A_t)]$
+  - Table: $Q(S_t, A_t)$
+  - DQN: $Q(S_t, A_t, \Theta) \approx Q^*(S_t, A_t)$
+- Policy-based
+  - Learn stochastic policy function straight from the world
+  - Network outputs the probability of taking a certain action given examples of actions taken in different states
+## Other
 - Solving the Multi-Armed Bandit Problem
   - Q_k = 1/k * (r_1 + r_2 + r_3 ... + r_k)
   - Q_k+1 = Q_k + 1/(k+1) * (r_k+1 - Q_k)
