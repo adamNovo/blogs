@@ -14,8 +14,7 @@ flights.show(5)
 
 // COMMAND ----------
 
-val data = flights.select($"DayofMonth", $"DayOfWeek", $"OriginAirportID", $"DestAirportID", $"DepDelay",
-                         ($"ArrDelay" > 15).cast("Int").alias("Late"))
+val data = flights.select($"DayofMonth", $"DayOfWeek", $"OriginAirportID", $"DestAirportID", $"DepDelay", ($"ArrDelay" > 15).cast("Int").alias("Late"))
 data.show(5)
 
 // COMMAND ----------
@@ -47,7 +46,7 @@ val model = lr.fit(training)
 
 // COMMAND ----------
 
-val testing = assembler.transform(train)
+val testing = assembler.transform(test)
   .select($"features", $"Late".alias("trueLabel"))
 testing.show(5, truncate=false)
 
