@@ -250,13 +250,16 @@ Linear regression
 - Algorithm 
   1) choose features that indicate annomalous variables
   2) fit params mu, sigma for each feature assume each feature has normal distribution N
-  3) compute probability p(x) = product( N(x_j | mu_j, sigma_j) )
+  3) compute probability $p(x) = \prod( N(x_j | \mu_j, \sigma_j) )$
   4) anomaly detected if p(x) < epsilon
   5) determine best epsilon by selecting the highest f1 score on CV
 - Multivariate gaussian is used to model the features as one distribution instead of product(p(x1), p(x2)...)
   - individual distribution may not uncover anomaly if their individual values are reasonable but their combined distribution is extreme
-  - previous model (prod) is a special case where no correlation between features exists
+  - previous model is a special case where no correlation between features exists
   - multivariate case allows for possible correlations
+  - more expensive than the product of single Gaussians
+  - single Gaussians can still be used when interactions variables are included
+  - requires m > n; no examples > no features. In practice, m >> n
 
 
 
