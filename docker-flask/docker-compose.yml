@@ -1,0 +1,14 @@
+version: '3'
+services:
+  lambda_api:
+    container_name: eb_api
+    image: eb_api_img
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/mnt/app
+    stdin_open: true
+    tty: true
+    restart: always
+    
