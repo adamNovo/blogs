@@ -39,7 +39,6 @@
     - [Data Science for Startups: Data Pipelines](#data-science-for-startups-data-pipelines)
     - [Estimating Probabilities with Bayesian Modeling in Python](#estimating-probabilities-with-bayesian-modeling-in-python)
 
-
 # Algorithms
 |Name|Pros|Cons|
 |---|---|---|
