@@ -19,34 +19,34 @@ print(no_observations)
 ## Random
 #########
 
-observation = env.reset()
-for ep in range(10):
-    state = env.reset()
-    for t in range(100):
-        env.render()
-        action = env.action_space.sample()
-        observation, reward, done, info = env.step(action)
-        if done:
-            print("Episode finished after {} timesteps".format(t+1))
-            break
-env.close()
+# observation = env.reset()
+# for ep in range(10):
+#     state = env.reset()
+#     for t in range(100):
+#         env.render()
+#         action = env.action_space.sample()
+#         observation, reward, done, info = env.step(action)
+#         if done:
+#             print("Episode finished after {} timesteps".format(t+1))
+#             break
+# env.close()
 
 #########
 ## Trained
 #########
 
-# model = tf.keras.models.load_model("model.h5")
+model = tf.keras.models.load_model("model.h5")
 
-# for ep in range(10):
-#     state = env.reset()
-#     r_total = 0
-#     for t in range(1000):
-#         env.render()
-#         action, q = get_best_action(state)
-#         next_state, reward, done, info = env.step(action)
-#         r_total += reward
-#         if done:
-#             print(f"Episode {ep} finished after {t} timesteps")
-#             break
-#         state = next_state
-# env.close()
+for ep in range(10):
+    state = env.reset()
+    r_total = 0
+    for t in range(1000):
+        env.render()
+        action, q = get_best_action(state)
+        next_state, reward, done, info = env.step(action)
+        r_total += reward
+        if done:
+            print(f"Episode {ep} finished after {t} timesteps")
+            break
+        state = next_state
+env.close()
